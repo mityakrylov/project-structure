@@ -51,7 +51,8 @@ export default class Page {
 
     const sortableTable = new SortableTable(header, {
       url: `api/dashboard/bestsellers?_start=1&_end=20&from=${from.toISOString()}&to=${to.toISOString()}`,
-      isSortLocally: true
+      isSortLocally: true,
+      rowHrefFunc: item => `/products/${item.id}`,
     });
 
     const ordersChart = new ColumnChart({
