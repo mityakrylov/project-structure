@@ -1,3 +1,5 @@
+import slugify from "slugify";
+
 import SortableList from '../sortable-list/index.js';
 import escapeHtml from '../../utils/escape-html.js';
 import fetchJson from '../../utils/fetch-json.js';
@@ -203,7 +205,7 @@ export default class ProductForm {
   async save() {
     const product = this.getFormData();
     const result = await fetchJson(`${process.env.BACKEND_URL}api/rest/products`, {
-      method: 'PATCH',
+      method: this.productId ? 'PATCH' : 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -229,7 +231,7 @@ export default class ProductForm {
     const imagesHTMLCollection = imageListContainer.querySelectorAll('.sortable-table__cell-img');
 
     values.images = [];
-    values.id = this.productId;
+    values.id = this.productId ? this.productId : slugify(values.title);
 
     for (const image of imagesHTMLCollection) {
       values.images.push({
