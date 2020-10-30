@@ -44,6 +44,8 @@ export default class Page {
     `;
   }
 
+  // TODO: такие методы лучше стараться дробить на более мелкие: один метод отвечает за хранение
+  // тимплейта, другой за создание элемента, третий за добавление обработчиков событий и т.д
   getCategoryItem(category) {
     const wrapper = document.createElement('div');
 
@@ -116,6 +118,7 @@ export default class Page {
         body: JSON.stringify(newSubcategories),
       });
 
+      // TODO: было бы неплохо вынести показ сообщения в отдельный метод, избавит от повторяющегося кода
       const notification = new NotificationMessage('Category order saved', {
         duration: 1000,
         type: 'success'
