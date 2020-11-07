@@ -8,7 +8,7 @@ export default class RangePicker {
   };
 
   static formatDate (date) {
-    return date.toLocaleString('ru', {dateStyle: 'short'})
+    return date.toLocaleString('ru', {dateStyle: 'short'});
   }
 
   onDocumentClick = event => {
@@ -215,7 +215,7 @@ export default class RangePicker {
       if (this.selectingFrom) {
         this.selected = {
           from: dateValue,
-          to:   null
+          to: null
         };
         this.selectingFrom = false;
         this.renderHighlight();
@@ -235,7 +235,7 @@ export default class RangePicker {
         this.dispatchEvent();
         this.close();
         this.subElements.from.innerHTML = RangePicker.formatDate(this.selected.from);
-        this.subElements.to.innerHTML = RangePicker.formatDate(this.selected.to)
+        this.subElements.to.innerHTML = RangePicker.formatDate(this.selected.to);
       }
     }
   }
@@ -243,7 +243,7 @@ export default class RangePicker {
   dispatchEvent () {
     this.element.dispatchEvent(new CustomEvent('date-select', {
       bubbles: true,
-      detail:  this.selected
+      detail: this.selected
     }));
   }
 

@@ -83,7 +83,7 @@ export default class Page {
     this.element = wrapper.firstElementChild;
 
     this.subElements = this.getSubElements(this.element);
-    this.form = this.element.querySelector('.form-inline')
+    this.form = this.element.querySelector('.form-inline');
 
     this.initComponents();
     this.renderComponents();
@@ -117,7 +117,7 @@ export default class Page {
     this.subElements.filterName.addEventListener('input', this.onFormChange);
     this.subElements.filterStatus.addEventListener('change', this.onFormChange);
 
-    this.form.addEventListener('submit', e => e.preventDefault())
+    this.form.addEventListener('submit', e => e.preventDefault());
   }
 
   onFormChange = async () => {

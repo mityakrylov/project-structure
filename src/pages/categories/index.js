@@ -28,7 +28,7 @@ export default class Page {
     );
 
     for (const category of categoriesData) {
-      this.subElements.categoriesContainer.append(this.getCategoryItem(category))
+      this.subElements.categoriesContainer.append(this.getCategoryItem(category));
     }
   }
 
@@ -99,7 +99,7 @@ export default class Page {
   }
 
   initEventListeners() {
-    document.addEventListener('sortable-list-reorder', this.onListReorder)
+    document.addEventListener('sortable-list-reorder', this.onListReorder);
   }
 
   onListReorder = async (event) => {
@@ -132,7 +132,7 @@ export default class Page {
   }
 
   destroy() {
-    document.removeEventListener('sortable-list-reorder', this.onListReorder)
+    document.removeEventListener('sortable-list-reorder', this.onListReorder);
 
     for (const list of this.components) {
       list.destroy();

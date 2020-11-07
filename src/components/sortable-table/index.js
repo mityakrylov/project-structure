@@ -174,8 +174,8 @@ export default class SortableTable {
   getTableRows(data) {
     return data.map(item =>
       this.rowHrefFunc
-      ? `<a href=${this.rowHrefFunc(item)} class="sortable-table__row">${this.getTableRow(item)}</a>`
-      : `<div class="sortable-table__row">${this.getTableRow(item)}</div>`
+        ? `<a href=${this.rowHrefFunc(item)} class="sortable-table__row">${this.getTableRow(item)}</a>`
+        : `<div class="sortable-table__row">${this.getTableRow(item)}</div>`
     ).join('');
   }
 
