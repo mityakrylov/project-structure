@@ -32,6 +32,8 @@ export default class Page {
     this.components.slider = slider;
   }
 
+  // TODO: ну вот очень длинная строка. Что в ней происходит сложно понять. Старайтесь дробить
+  // на более мелкие подоперации, объявляйте для этого дополнительные переменные.
   async updateComponents(priceMin, priceMax, filterName, status) {
     const { sorted } = this.components.sortableTable;
     this.components.sortableTable.url = new URL(
@@ -40,6 +42,7 @@ export default class Page {
   }
 
   getTableUrl(priceMin, priceMax, filterName, status) {
+    // TODO: помните про new URL объект? Стоило его использовать здесь
     return `api/rest/products?_embed=subcategory.category&price_gte=${priceMin}&price_lte=${priceMax}`
       + (filterName ? `&title_like=${encodeURIComponent(filterName)}` : '')
       + (status ? `&status=${status}` : '');

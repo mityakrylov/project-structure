@@ -2,9 +2,12 @@ import ProductForm from '../../../components/product-form/index.js';
 
 export default class Page {
   element;
-  productId = null;
+  productId = null; // TODO: здесь не обязательно присваивать null. Можно обойтись просто объявлением
   form;
 
+  // TODO: было бы неплохо задать дефолтное значение для аргумента,
+  // так как значение `productId` приходит в виде строки, можно задать пустую строку как значение
+  // по умолчанию
   constructor(productId) {
     this.productId = productId;
 
