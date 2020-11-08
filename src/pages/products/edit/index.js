@@ -2,10 +2,10 @@ import ProductForm from '../../../components/product-form/index.js';
 
 export default class Page {
   element;
-  productId = null;
+  productId;
   form;
 
-  constructor(productId) {
+  constructor(productId = '') {
     this.productId = productId;
 
     this.form = new ProductForm(productId);
