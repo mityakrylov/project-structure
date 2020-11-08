@@ -34,8 +34,9 @@ export default class Page {
 
   async updateComponents(priceMin, priceMax, filterName, status) {
     const { sorted } = this.components.sortableTable;
-    this.components.sortableTable.url = new URL(
-      this.getTableUrl(priceMin, priceMax, filterName, status), process.env.BACKEND_URL);
+    const url = this.getTableUrl(priceMin, priceMax, filterName, status);
+
+    this.components.sortableTable.url = new URL(url, process.env.BACKEND_URL);
     await this.components.sortableTable.sortOnServer(sorted.id, sorted.order);
   }
 
