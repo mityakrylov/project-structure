@@ -119,6 +119,7 @@ export default class Page {
     const newSubcategories = [...event.target.childNodes].map((item, index) => {
       return {id: item.dataset.id, weight: index + 1};
     });
+    const notifiedElement = event.target.closest('div');
 
     try {
       await fetchJson(`${process.env.BACKEND_URL}api/rest/subcategories`, {
@@ -129,19 +130,19 @@ export default class Page {
         body: JSON.stringify(newSubcategories),
       });
 
-      const notification = new NotificationMessage('Category order saved', {
-        duration: 1000,
-        type: 'success'
-      });
-      notification.show(event.target.closest('div'));
+      this.showNotification(notifiedElement, 'Category order saved', 'success');
 
     } catch {
-      const notification = new NotificationMessage('Category order save error', {
-        duration: 1000,
-        type: 'error'
-      });
-      notification.show(event.target.closest('div'));
+      this.showNotification(notifiedElement, 'Category order save error', 'error');
     }
+  }
+
+  showNotification(element, message, type) {
+    const notification = new NotificationMessage(
+      message,
+      { duration: 1000, type }
+    );
+    notification.show(element);
   }
 
   destroy() {
