@@ -46,8 +46,18 @@ export default class Page {
 
   getCategoryItem(category) {
     const wrapper = document.createElement('div');
+    wrapper.innerHTML = this.getCategoryTemplate(category);
+    const element = wrapper.firstElementChild;
 
-    wrapper.innerHTML = `
+    const sortableList = this.getSubcategoriesList(category.subcategories);
+    this.components.push(sortableList);
+    element.querySelector('.subcategory-list').append(sortableList.element);
+
+    return element;
+  }
+
+  getCategoryTemplate(category) {
+    return `
       <div class="category category_open" data-id=${category.id}>
         <header class="category__header">
           ${category.title}
@@ -58,34 +68,26 @@ export default class Page {
         </div>
       </div>
     `;
-
-    const element = wrapper.firstElementChild;
-
-    element.querySelector('.category__header').addEventListener('click', event => {
-      event.target.closest('div').classList.toggle('category_open');
-    });
-
-    const subcategoryItems = category.subcategories.map(subcategory => this.getSubcategoryItem(subcategory));
-    const sortableList = new SortableList({items: subcategoryItems});
-    this.components.push(sortableList);
-
-    element.querySelector('.subcategory-list').append(sortableList.element);
-
-    return element;
   }
 
-  getSubcategoryItem(subcategory) {
-    const wrapper = document.createElement('div');
+  getSubcategoriesList(subcategories) {
+    const subcategoryItems = subcategories.map(subcategory => {
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = this.getSubcategoryTemplate(subcategory);
+      return wrapper.firstElementChild;
+    });
 
-    wrapper.innerHTML = `
+    return new SortableList({items: subcategoryItems});
+  }
+
+  getSubcategoryTemplate(subcategory) {
+    return `
       <li class="categories__sortable-list-item sortable-list__item" data-grab-handle=""
           data-id=${subcategory.id}>
         <strong>${subcategory.title}</strong>
         <span><b>${subcategory.count}</b> products</span>
       </li>
     `;
-
-    return wrapper.firstElementChild;
   }
 
   getSubElements(element) {
@@ -100,6 +102,17 @@ export default class Page {
 
   initEventListeners() {
     document.addEventListener('sortable-list-reorder', this.onListReorder);
+
+    this.element.addEventListener('click', this.onCategoryToggle);
+  }
+
+  onCategoryToggle = (event) => {
+    const element = event.target.closest('div');
+    if (!element.classList.contains('category')) {
+      return;
+    }
+
+    element.classList.toggle('category_open');
   }
 
   onListReorder = async (event) => {
