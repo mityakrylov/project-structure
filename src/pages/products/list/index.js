@@ -34,16 +34,22 @@ export default class Page {
 
   async updateComponents(priceMin, priceMax, filterName, status) {
     const { sorted } = this.components.sortableTable;
-    const url = this.getTableUrl(priceMin, priceMax, filterName, status);
-
-    this.components.sortableTable.url = new URL(url, process.env.BACKEND_URL);
+    this.components.sortableTable.url = this.getTableUrl(priceMin, priceMax, filterName, status);
     await this.components.sortableTable.sortOnServer(sorted.id, sorted.order);
   }
 
   getTableUrl(priceMin, priceMax, filterName, status) {
-    return `api/rest/products?_embed=subcategory.category&price_gte=${priceMin}&price_lte=${priceMax}`
-      + (filterName ? `&title_like=${encodeURIComponent(filterName)}` : '')
-      + (status ? `&status=${status}` : '');
+    const url = new URL('api/rest/products', process.env.BACKEND_URL);
+    url.searchParams.set('_embed', 'subcategory.category');
+    url.searchParams.set('price_gte', priceMin);
+    url.searchParams.set('price_lte', priceMax);
+    if (filterName) {
+      url.searchParams.set('title_like', encodeURIComponent(filterName));
+    }
+    if (status) {
+      url.searchParams.set('status', status);
+    }
+    return url;
   }
 
   getTemplate() {
